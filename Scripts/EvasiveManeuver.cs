@@ -2,20 +2,23 @@ using UnityEngine;
 using System.Collections;
 
 public class EvasiveManeuver : MonoBehaviour
+    //Remove comments when done!
 {
-	public Boundary boundary;
-	public float tilt;
+    public float smoothing;
+    public float tilt;
 	public float dodge;
-	public float smoothing;
 	public Vector2 startWait;
 	public Vector2 maneuverTime;
 	public Vector2 maneuverWait;
+    public Boundary boundary;
 
-	private float currentSpeed;
+    private float currentSpeed;
 	private float targetManeuver;
+    //private Rigidbody rb;
 
 	void Start ()
 	{
+        //RenderBuffer = GetComponent<Rigidbody>();
 		currentSpeed = GetComponent<Rigidbody>().velocity.z;
 		StartCoroutine(Evade());
 	}
@@ -42,7 +45,8 @@ public class EvasiveManeuver : MonoBehaviour
 			0.0f, 
 			Mathf.Clamp(GetComponent<Rigidbody>().position.z, boundary.zMin, boundary.zMax)
 		);
-		
+
+        //RenderBuffer.rotation = Quaternion.Euler(0.0f, 0.0f, RenderBuffer.velocity.x * -tilt);
 		GetComponent<Rigidbody>().rotation = Quaternion.Euler (0, 0, GetComponent<Rigidbody>().velocity.x * -tilt);
 	}
 }
